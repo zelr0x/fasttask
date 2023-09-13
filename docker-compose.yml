@@ -1,0 +1,29 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:14.1-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - .env
+    ports:
+      - ${DB_PORT}:5432
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./app:/fasttask/app
+    env_file:
+      - .env
+    ports:
+      - ${APP_PORT}:${APP_PORT}
+      - ${APP_DBG_PORT}:${APP_DBG_PORT}
+    command: uvicorn app.main:app --host ${APP_HOST} --port ${APP_PORT} --reload --log-config ./logging.yaml
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:  # Defines postgres data volume. It is a complete configuration.
