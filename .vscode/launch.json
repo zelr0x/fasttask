@@ -7,6 +7,7 @@
         {
             "name": "DBG - attach remote",
             "type": "python",
+            "justMyCode": false,
             "request": "attach",
             "connect": {
                 "host": "localhost",
@@ -22,6 +23,7 @@
         {
             "name": "DBG - uvicorn (local)",
             "type": "python",
+            "justMyCode": false,
             "request": "launch",
             "module": "uvicorn",
             "cwd": "${workspaceFolder}",
@@ -29,8 +31,7 @@
                 "app.main:app",
                 "--reload"
             ],
-            "jinja": true,
-            "justMyCode": false
+            "jinja": true
         }
     ]
 }
